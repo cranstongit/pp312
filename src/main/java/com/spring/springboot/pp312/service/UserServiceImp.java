@@ -28,13 +28,13 @@ public class UserServiceImp implements UserService {
    @Override
    public void update(long id, User user) {
       User existingUser = userDAO.find(id);
-//      if (existingUser == null) {
-//         throw new EntityNotFoundException("User with id " + id + " not found");
-//      }
-//
-//      existingUser.setFirstName(user.getFirstName());
-//      existingUser.setLastName(user.getLastName());
-//      existingUser.setEmail(user.getEmail());
+      if (existingUser == null) {
+         throw new EntityNotFoundException("User with id " + id + " not found");
+      }
+
+      existingUser.setFirstName(user.getFirstName());
+      existingUser.setLastName(user.getLastName());
+      existingUser.setEmail(user.getEmail());
 
       userDAO.save(existingUser);
    }
@@ -42,10 +42,10 @@ public class UserServiceImp implements UserService {
    @Transactional
    @Override
    public void delete(long id) {
-//      User existingUser = userDAO.find(id);
-//      if (existingUser == null) {
-//         throw new EntityNotFoundException("User with id " + id + " not found");
-//      }
+      User existingUser = userDAO.find(id);
+      if (existingUser == null) {
+         throw new EntityNotFoundException("User with id " + id + " not found");
+      }
       userDAO.delete(id);
    }
 
